@@ -1,0 +1,5 @@
+LIBRARY Gr2DLib
+
+EXPORTS
+    DllCanUnloadNow     PRIVATE
+    DllGetClassObject   PRIVATE
