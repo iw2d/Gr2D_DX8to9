@@ -1,7 +1,6 @@
 #pragma once
 #include <atomic>
 #include <WzLib/IWzGr2D.h>
-#include "Debug.h"
 
 
 class CWzGr2DLayer : public IWzGr2DLayer {
@@ -249,7 +248,6 @@ public:
     }
     virtual HRESULT __stdcall unk_120(INT a1) {
         // Called in CNpc::Init before CMapleTVMan::SetFlashAbsLocation
-        DebugMessage("CWzGr2DLayer::unk_120(%d) - 0x%08X", a1, _ReturnAddress());
         return S_OK;
     }
 };

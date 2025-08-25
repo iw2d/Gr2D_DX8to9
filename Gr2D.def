@@ -1,4 +1,4 @@
-LIBRARY Gr2DLib
+LIBRARY Gr2D_DX8
 
 EXPORTS
     DllCanUnloadNow     PRIVATE

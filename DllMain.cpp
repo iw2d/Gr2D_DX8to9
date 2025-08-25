@@ -1,5 +1,5 @@
 #include <windows.h>
-#include "Gr2D.h"
+#include "Gr2DFactory.h"
 
 
 HMODULE hDX9Module = nullptr;
