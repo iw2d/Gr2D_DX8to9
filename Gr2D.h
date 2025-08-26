@@ -1,78 +1,8 @@
 #pragma once
 #include <atomic>
 #include <WzLib/IWzGr2D.h>
+#include "Gr2D/IWzGr2D_DX8.h"
 #include "Gr2DLayer.h"
-
-
-struct __declspec(uuid("e576ea33-d465-4f08-aab1-e78df73ee6d9"))
-IWzGr2D_DX8 : IUnknown
-{
-    virtual HRESULT __stdcall raw_Initialize (
-        /*[in]*/ unsigned int uWidth,
-        /*[in]*/ unsigned int uHeight,
-        /*[in]*/ VARIANT vHwnd = vtEmpty,
-        /*[in]*/ VARIANT vBPP = vtEmpty,
-        /*[in]*/ VARIANT vRefreshRate = vtEmpty ) = 0;
-    virtual HRESULT __stdcall raw_Uninitialize ( ) = 0;
-    virtual HRESULT __stdcall get_nextRenderTime (
-        /*[out,retval]*/ int * pnTime ) = 0;
-    virtual HRESULT __stdcall raw_UpdateCurrentTime (
-        /*[in]*/ int tTime ) = 0;
-    virtual HRESULT __stdcall raw_RenderFrame ( ) = 0;
-    virtual HRESULT __stdcall raw_SetFrameSkip ( ) = 0;
-    virtual HRESULT __stdcall raw_ToggleFpsPanel ( ) = 0;
-    virtual HRESULT __stdcall raw_DisableFpsPanel ( ) = 0;
-    virtual HRESULT __stdcall get_width (
-        /*[out,retval]*/ unsigned int * puWidth ) = 0;
-    virtual HRESULT __stdcall get_height (
-        /*[out,retval]*/ unsigned int * puHeight ) = 0;
-    virtual HRESULT __stdcall get_bpp (
-        /*[out,retval]*/ unsigned int * puBPP ) = 0;
-    virtual HRESULT __stdcall get_refreshRate (
-        /*[out,retval]*/ unsigned int * puRefreshRate ) = 0;
-    virtual HRESULT __stdcall get_fps100 (
-        /*[out,retval]*/ unsigned int * puFps100 ) = 0;
-    virtual HRESULT __stdcall get_currentTime (
-        /*[out,retval]*/ int * pnCurrentTime ) = 0;
-    virtual HRESULT __stdcall get_fullScreen (
-        /*[out,retval]*/ int * pnFullScreen ) = 0;
-    virtual HRESULT __stdcall put_fullScreen (
-        /*[in]*/ int pnFullScreen ) = 0;
-    virtual HRESULT __stdcall get_backColor (
-        /*[out,retval]*/ unsigned int * puColor ) = 0;
-    virtual HRESULT __stdcall put_backColor (
-        /*[in]*/ unsigned int puColor ) = 0;
-    virtual HRESULT __stdcall get_redTone (
-        /*[out,retval]*/ struct IWzVector2D * * ppVector ) = 0;
-    virtual HRESULT __stdcall get_greenBlueTone (
-        /*[out,retval]*/ struct IWzVector2D * * ppVector ) = 0;
-    virtual HRESULT __stdcall get_center (
-        /*[out,retval]*/ struct IWzVector2D * * ppVector ) = 0;
-    virtual HRESULT __stdcall raw_GetSnapshot (
-        /*[in]*/ VARIANT pvBuffer,
-        /*[in]*/ unsigned int uBufferSize,
-        /*[in]*/ int x,
-        /*[in]*/ int y ) = 0;
-    virtual HRESULT __stdcall raw_CreateLayer (
-        /*[in]*/ int nLeft,
-        /*[in]*/ int nTop,
-        /*[in]*/ unsigned int uWidth,
-        /*[in]*/ unsigned int uHeight,
-        /*[in]*/ int nZ,
-        /*[in]*/ VARIANT vCanvas,
-        /*[in]*/ VARIANT dwFilter,
-        /*[out,retval]*/ struct IWzGr2DLayer * * ppLayer ) = 0;
-    virtual HRESULT __stdcall raw_InitializeFlashByDevice ( ) = 0;
-    virtual HRESULT __stdcall raw_LoadMediaFile (
-        /*[in]*/ LPSTR sSource ) = 0;
-    virtual HRESULT __stdcall raw_SetFlashAbsLocation (
-        /*[in]*/ int nX,
-        /*[in]*/ int nY ) = 0;
-    virtual HRESULT __stdcall raw_RenderFlash ( ) = 0;
-    virtual HRESULT __stdcall raw_ReleaseFlash ( ) = 0;
-    virtual HRESULT __stdcall raw_IsRenderFlash (
-        /*[out,retval]*/ int * pnRenderFlash ) = 0;
-};
 
 
 class CWzGr2D : public IWzGr2D_DX8 {

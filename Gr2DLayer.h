@@ -31,7 +31,6 @@ public:
         return uCount;
     }
 
-
     /*** IWzSerialize methods ***/
     virtual HRESULT __stdcall get_persistentUOL(BSTR* pVal) override {
         return m_pInner->get_persistentUOL(pVal);
