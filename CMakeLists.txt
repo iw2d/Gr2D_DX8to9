@@ -6,6 +6,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
 
 # Configure WzLib
+set(WZLIB_NAME "WzLib_DX8to9" CACHE STRING "" FORCE)
 add_subdirectory(WzLib EXCLUDE_FROM_ALL)
 
 # Create library
@@ -20,11 +21,11 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    WzLib
+    ${WZLIB_NAME}
 )
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${CMAKE_SOURCE_DIR}/Gr2D_DX9.dll"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Gr2D_DX9.dll"
         "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
 )
