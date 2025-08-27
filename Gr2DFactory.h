@@ -1,6 +1,6 @@
 #pragma once
 #include <atomic>
-#include <WzLib/IWzGr2D.h>
+#include <WzLib/IWzGr2D_DX9.h>
 #include "Gr2D.h"
 
 
@@ -34,7 +34,7 @@ public:
 
     /*** IClassFactory methods ***/
     virtual HRESULT __stdcall CreateInstance(IUnknown* pUnkOuter, REFIID riid, void** ppvObject) {
-        IWzGr2D* pInner = nullptr;
+        IWzGr2D_DX9* pInner = nullptr;
         HRESULT hr = m_pInner->CreateInstance(pUnkOuter, riid, reinterpret_cast<void**>(&pInner));
         if (FAILED(hr)) {
             return hr;

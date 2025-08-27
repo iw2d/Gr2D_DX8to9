@@ -1,17 +1,17 @@
 #pragma once
 #include <atomic>
 #include <WzLib/IWzGr2D.h>
-#include "Gr2D/IWzGr2D_DX8.h"
+#include <WzLib/IWzGr2D_DX9.h>
 #include "Gr2DLayer.h"
 
 
-class CWzGr2D : public IWzGr2D_DX8 {
+class CWzGr2D : public IWzGr2D {
 private:
     std::atomic<ULONG> m_uRefCount;
-    IWzGr2D* m_pInner;
+    IWzGr2D_DX9* m_pInner;
 
 public:
-    CWzGr2D(IWzGr2D* pInner) : m_uRefCount(1), m_pInner(pInner) {
+    CWzGr2D(IWzGr2D_DX9* pInner) : m_uRefCount(1), m_pInner(pInner) {
         m_pInner->AddRef();
     }
     ~CWzGr2D() {
@@ -117,7 +117,7 @@ public:
         if (ppLayer == nullptr) {
             return E_POINTER;
         }
-        IWzGr2DLayer* pInner = nullptr;
+        IWzGr2DLayer_DX9* pInner = nullptr;
         HRESULT hr = m_pInner->raw_CreateLayer(nLeft, nTop, uWidth, uHeight, nZ, vCanvas, dwFilter, &pInner);
         if (FAILED(hr)) {
             return hr;
@@ -147,9 +147,14 @@ public:
         *pnRenderFlash = 0;
         return S_OK;
     }
-
-    /*** Custom methods ***/
-    virtual HRESULT __stdcall put_screenResolution(UINT uWidth, UINT uHeight) {
-        return m_pInner->put_screenResolution(uWidth, uHeight);
+    virtual HRESULT __stdcall raw_GetInner(IUnknown** ppInner) override {
+        if (ppInner == nullptr) {
+            return E_POINTER;
+        }
+        *ppInner = m_pInner;
+        if (*ppInner) {
+            (*ppInner)->AddRef();
+        }
+        return S_OK;
     }
 };

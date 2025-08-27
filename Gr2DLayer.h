@@ -1,15 +1,16 @@
 #pragma once
 #include <atomic>
-#include <WzLib/IWzGr2D.h>
+#include <WzLib/IWzGr2DLayer.h>
+#include <WzLib/IWzGr2DLayer_DX9.h>
 
 
 class CWzGr2DLayer : public IWzGr2DLayer {
 private:
     std::atomic<ULONG> m_uRefCount;
-    IWzGr2DLayer* m_pInner;
+    IWzGr2DLayer_DX9* m_pInner;
 
 public:
-    CWzGr2DLayer(IWzGr2DLayer* pInner) : m_uRefCount(1), m_pInner(pInner) {
+    CWzGr2DLayer(IWzGr2DLayer_DX9* pInner) : m_uRefCount(1), m_pInner(pInner) {
     }
     ~CWzGr2DLayer() {
         m_pInner->Release();
@@ -245,8 +246,17 @@ public:
     virtual HRESULT __stdcall put_visible(INT nVisible) override {
         return m_pInner->put_visible(nVisible);
     }
-    virtual HRESULT __stdcall unk_120(INT a1) {
-        // Called in CNpc::Init before CMapleTVMan::SetFlashAbsLocation
+    virtual HRESULT __stdcall raw_RenderFlash(INT nRenderFlash) override {
+        return S_OK;
+    }
+    virtual HRESULT __stdcall raw_GetInner(IUnknown** ppInner) override {
+        if (ppInner == nullptr) {
+            return E_POINTER;
+        }
+        *ppInner = m_pInner;
+        if (*ppInner) {
+            (*ppInner)->AddRef();
+        }
         return S_OK;
     }
 };
